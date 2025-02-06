@@ -3,22 +3,21 @@ name: Deploy to Netlify
 on:
   push:
     branches:
-      - master  # or main if that is your default branch
+      - master  # or main, depending on your default branch
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout code
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install dependencies
-        run: npm install  # If you're using any build tools, otherwise this is optional
+      # Step 2: Install Netlify CLI
+      - name: Install Netlify CLI
+        run: npm install -g netlify-cli
 
+      # Step 3: Deploy to Netlify using CLI
       - name: Deploy to Netlify
-        uses: netlify/actions/cli@v3
-        with:
-          netlify_auth_token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          netlify_site_id: ${{ secrets.NETLIFY_SITE_ID }}
-          build_dir: .  # Points to the root directory, change if needed
+        run: netlify deploy --dir=./ --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} --site ${{ secrets.NETLIFY_SITE_ID }} --prod
