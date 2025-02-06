@@ -3,7 +3,7 @@ name: Deploy to Netlify
 on:
   push:
     branches:
-      - master  # or main if that's your default branch
+      - master  # or main, depending on your default branch
 
 jobs:
   deploy:
@@ -14,7 +14,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Step 2: Install Netlify CLI (Netlify CLI is used for deployment)
+      # Step 2: Install Netlify CLI (needed for deployment)
       - name: Install Netlify CLI
         run: npm install -g netlify-cli
 
